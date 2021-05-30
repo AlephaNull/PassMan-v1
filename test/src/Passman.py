@@ -207,7 +207,7 @@ print("     Created By H4X1ag   ")
 print("     Version 2.0         ")
 print("----------------------------------------")
 
-def login():
+def main():
     #check for root permissions
     if os.getuid() != 0:
         print("[!]PassMan needs root permissions to run!")
@@ -230,10 +230,6 @@ def login():
     else:
         askpass = getpass.getpass("Enter the Super User Password: ")
         print("Login Successfull")
-
-def main():
-    login()
-
 
 if __name__ == "__main__":
     main()

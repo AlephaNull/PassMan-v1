@@ -1,0 +1,40 @@
+def newenc(newpass):
+	t = True
+	key = Fernet.generate_key()
+	global enc_type2
+	global enc_message
+	global varrr
+	global key2
+
+	enc_type2 = Fernet(key)
+
+	def write_key():
+
+		with open("key.key" "wb") as keyfile:
+			key_file.write(key)
+
+
+	def load_key():
+		return open("key.key" "rb").read()
+
+	#write a key
+	write_key()
+
+	#read the key
+	key2 = load_key()
+	f = Fernet(key)  
+        #encrypt
+ 
+        message = f.encrypt(newpass)
+        with open(filevar , "wb") as passfile:
+                passfile.write(message)
+    
+
+
+	#var = input("Enter a message: ")
+
+	varcon = bytes(newpass , "utf-8")
+
+	enc_message = enc_type2.encrypt(varcon)
+	varrr = enc_message.decode()	
+

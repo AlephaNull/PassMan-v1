@@ -81,7 +81,7 @@ def check_passwd(passwd):
 def dec():
     dec_message = enc_type.decrypt(enc_message)
     encoding = "utf-8"
-    convar = dec_message.decode()
+    convar = dec_message.decode(encoding)
     print(convar)
 
 
@@ -107,10 +107,12 @@ def enc(passwd):
 def newdec(askpass):
     key = Fernet.generate_key()
     f = Fernet(key)
-    with open(filevar , "rb") as encrypted_file:
-        encrypted =  encrypted_file.read()
+    with open(fullvar , "rb") as encrypted_file:
+        encrypted = encrypted_file.read()
+        decoded_enc_file = encrypted.decode("utf-8")
 
-    decrypted = f.decrypt(encrypted)
+    #decrypted = f.decrypt(decoded_enc_file)
+
 
     if askpass == decrypted:
         print("correct")
@@ -122,15 +124,18 @@ def newenc(newpass):
     key = Fernet.generate_key()
     encoded_message = newpass.encode()
     f = Fernet(key)
-    encrypted_message = f.encrypt(encoded_message)
+    encrypted_message = f.encrypt(newpass)
     encrypted_message_str = str(encrypted_message)
+    decoded_enc_message = encrypted_message_str.decode("utf-8")
     print("This is your password hash. DONT copy it. DONT memorize it. Just clear the screen \n" + encrypted_message_str)
 
 
 
     passwd_file =  open(fullvar ,'w+')
-    passwd_file.write(encrypted_message_str)
+    passwd_file.write(decoded_enc_message)
     passwd_file.close()
+
+
 
 
 
@@ -213,27 +218,21 @@ def login():
         print("[!]PassMan needs root permissions to run!")
         exit()
 
-
-
-
     if os.path.exists(fullvar) != True:
 
         newpass = getpass.getpass("Enter a new password: ")
         newenc(newpass)
-
-
-    
-    
+        
     #confirm = True
-    
-    
+        
     else:
         askpass = getpass.getpass("Enter the Super User Password: ")
-        print("Login Successfull")
+        newdec(askpass) 
+        #print("Login Successfull")
 
 def main():
     login()
-
+    
 
 if __name__ == "__main__":
     main()
