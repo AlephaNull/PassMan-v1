@@ -1,1 +1,2 @@
-# passman
+# PassMan is now deprecated ! 
+
